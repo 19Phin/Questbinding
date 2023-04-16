@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "questbind",
+  "version": "${version}",
+
+  "name": "Questbind",
+  "description": "Keybinding for Questcraft!",
+  "authors": [
+    "Me!"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+
+  "license": "MIT",
+  "icon": "assets/questbind/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.dialingspoon.questbind.Questbind"
+    ]
+  },
+  "mixins": [
+    "questbind.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.9",
+    "fabric-api": "*",
+    "minecraft": "~1.19",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
