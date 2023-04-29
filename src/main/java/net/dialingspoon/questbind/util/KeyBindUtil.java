@@ -47,22 +47,25 @@ public class KeyBindUtil {
     }
 
     public void readsave() throws IOException {
-        Scanner scanner;
-        if (actualSave.exists()) scanner = new Scanner(actualSave);
-        if (actualSave.exists() && scanner.hasNext()) {
-            Map<String, Integer> map = new HashMap<>();
-            BufferedReader reader = new BufferedReader(new FileReader(actualSave));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(":");
-                if (parts.length == 2) {
-                    String key = parts[0];
-                    int value = Integer.parseInt(parts[1]);
-                    map.put(key, value);
+        if (actualSave.exists()) {
+            Scanner scanner = new Scanner(actualSave);
+            if (scanner.hasNext()) {
+                Map<String, Integer> map = new HashMap<>();
+                BufferedReader reader = new BufferedReader(new FileReader(actualSave));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] parts = line.split(":");
+                    if (parts.length == 2) {
+                        String key = parts[0];
+                        int value = Integer.parseInt(parts[1]);
+                        map.put(key, value);
+                    }
                 }
+                reader.close();
+                binds = map;
+            }else {
+                binds = defaultBinds;
             }
-            reader.close();
-            binds = map;
         } else {
             binds = defaultBinds;
         }
