@@ -1,7 +1,9 @@
 package net.dialingspoon.questbind.mixin;
 
 import net.dialingspoon.questbind.Questbind;
+import net.dialingspoon.questbind.interfaces.MinecraftClientInterface;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,19 +19,6 @@ import java.nio.file.StandardCopyOption;
 public class MCOpenVRMixin {
 	@Inject(at = @At("TAIL"), method = "generateActionManifest()V", remap = false)
 	private void init(CallbackInfo info) {
-		// Define the source and destination file paths
-		Path sourcePath = Paths.get(FabricLoader.getInstance().getConfigDir().toString(), "oculus_defaults.json");
-		Path targetPath = Paths.get(FabricLoader.getInstance().getGameDir().toString(), "openvr", "input", "oculus_defaults.json");
-
-		// Check if the source file exists
-		if (Files.exists(sourcePath)) {
-			try {
-				// Copy the source file to the destination file
-				Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
-				Questbind.LOGGER.info("New controls registered");
-			} catch (Exception e) {
-				Questbind.LOGGER.error("Failed to copy file: " + e.getMessage());
-			}
-		}
+		((MinecraftClientInterface) MinecraftClient.getInstance()).getKeyBindUtil().loadKeybinds();
 	}
 }

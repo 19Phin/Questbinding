@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "net.dialingspoon.questbind.Questbind"
+    ],
+    "client": [
+      "net.dialingspoon.questbind.QuestbindClient"
     ]
   },
   "mixins": [
