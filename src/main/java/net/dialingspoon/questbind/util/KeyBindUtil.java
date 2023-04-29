@@ -47,7 +47,8 @@ public class KeyBindUtil {
     }
 
     public void readsave() throws IOException {
-        Scanner scanner = new Scanner(actualSave);
+        Scanner scanner;
+        if (actualSave.exists()) scanner = new Scanner(actualSave);
         if (actualSave.exists() && scanner.hasNext()) {
             Map<String, Integer> map = new HashMap<>();
             BufferedReader reader = new BufferedReader(new FileReader(actualSave));
