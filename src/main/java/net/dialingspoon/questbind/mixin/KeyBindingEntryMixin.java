@@ -60,7 +60,7 @@ public class KeyBindingEntryMixin {
 
 	@Inject(at = @At("HEAD"), method = "update", cancellable = true)
 	private void update(CallbackInfo ci) {
-		if (!(((ControlsListWidgetAccessor) field_2742).getParent().selectedKeyBinding == null)) {
+		if (((ControlsListWidgetAccessor) field_2742).getParent().selectedKeyBinding != null) {
 			int i = ((KeyBindingInterface) ((ControlsListWidgetAccessor) field_2742).getParent().selectedKeyBinding).getBindIt() + 1;
 			if (i == 12) i = 0;
 			((KeyBindingInterface) ((ControlsListWidgetAccessor) field_2742).getParent().selectedKeyBinding).setBindIt(i);
