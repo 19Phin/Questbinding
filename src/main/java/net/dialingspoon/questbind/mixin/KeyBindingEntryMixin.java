@@ -9,7 +9,6 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -48,12 +47,12 @@ public class KeyBindingEntryMixin {
 		int var10004 = y + entryHeight / 2;
 		Objects.requireNonNull(MinecraftClient.getInstance().textRenderer);
 		var10000.draw(matrices, var10002, var10003, (float)(var10004 - 9 / 2), 16777215);
-		this.resetButton.setX(x + 190);
-		this.resetButton.setY(y);
+		this.resetButton.x = x + 190;
+		this.resetButton.y = y;
 		this.resetButton.active = !this.binding.isDefault();
 		this.resetButton.render(matrices, mouseX, mouseY, tickDelta);
-		this.editButton.setX(x + 105);
-		this.editButton.setY(y);
+		this.editButton.x = x + 105;
+		this.editButton.y = y;
 		this.editButton.setMessage(Text.literal(KeyBindUtil.BUTTONS[((KeyBindingInterface)this.binding).getBindIt()]));
 
 		this.editButton.render(matrices, mouseX, mouseY, tickDelta);
