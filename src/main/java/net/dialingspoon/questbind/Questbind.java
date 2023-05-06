@@ -1,6 +1,5 @@
 package net.dialingspoon.questbind;
 
-import net.dialingspoon.questbind.util.KeyBindUtil;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

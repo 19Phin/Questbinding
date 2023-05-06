@@ -1,14 +1,18 @@
 package net.dialingspoon.questbind.util;
 
+import net.dialingspoon.questbind.Questbind;
 import net.minecraft.client.option.KeyBinding;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class KeyBindUtil {
     public static final String[] BUTTONS = {"null","a", "b", "x", "y", "Ltrigger", "Rtrigger", "Lgrip", "Rgrip", "LstickPress", "RstickPress", "MenuButton"};
     public Map<String, Integer> binds = new HashMap<>();
-    public boolean read;
+    public boolean read = false;
     String keys;
     String altKeys;
     String actionsets;
@@ -34,7 +38,6 @@ public class KeyBindUtil {
     }
 
     public void actualSave() {
-        System.out.println("AAAAAAA");
         read = false;
         KeyBinding.updateKeysByCode();
         save = "";
@@ -76,12 +79,12 @@ public class KeyBindUtil {
     public void compileKeybind(String translationKey, int button){
         if (!WEIREDONES.contains(translationKey)) {
             keys = keys + mid1 + translationKey + mid2 + BUTTONPATH[button] + mid3 + ",";
-        } else if (translationKey.equals(WEIREDONES.get(0))) {
-            keys = keys + mid1alt + translationKey + mid2 + BUTTONPATH[button] + mid3 + ",";
+        } else if (!translationKey.equals(WEIREDONES.get(0))) {
+            altKeys = altKeys + mid1alt + translationKey + mid2 + BUTTONPATH[button] + mid3 + ",";
         }else {
-        altKeys = altKeys + mid1 + translationKey + mid2alt + BUTTONPATH[button] + mid3 + ",";
+            keys = keys + mid1 + translationKey + mid2alt + BUTTONPATH[button] + mid3 + ",";
         }
-        actionsets = actionsets + "\n" + translationKey + ":ingame";
+        if (!defaultBinds.containsKey(translationKey)) actionsets = actionsets + "\n" + translationKey + ":ingame";
     }
 
     public static void replaceFileData(File file, String data) {
@@ -94,7 +97,7 @@ public class KeyBindUtil {
             writer.write(data);
             writer.close();
         } catch (IOException e) {
-            System.out.println("An error occurred: " + e.getMessage());
+            Questbind.LOGGER.error("An error occurred: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -293,7 +296,25 @@ public class KeyBindUtil {
                   "/actions/ingame" : {
                      "sources" : [""";
     public static String after2 = """
-                     
+            
+            {
+               "inputs" : {
+                  "position" : {
+                     "output" : "/actions/ingame/in/vivecraft.key.freemovestrafe"
+                  }
+               },
+               "mode" : "joystick",
+               "path" : "/user/hand/left/input/joystick"
+            },
+            {
+               "inputs" : {
+                  "position" : {
+                     "output" : "/actions/ingame/in/vivecraft.key.rotateaxis"
+                  }
+               },
+               "mode" : "joystick",
+               "path" : "/user/hand/right/input/joystick"
+            }
                      ]
                   },
                   "/actions/keyboard" : {
@@ -377,21 +398,21 @@ public class KeyBindUtil {
 
     public static final String[] BUTTONPATH = {"null","right/input/a", "right/input/b", "left/input/x", "left/input/y", "left/input/trigger", "right/input/trigger", "left/input/grip", "right/input/grip", "left/input/joystick", "right/input/joystick", "left/input/application_menu"};
     public static final ArrayList<String> WEIREDONES = new ArrayList<>(
-            java.util.Arrays.asList("key.sneak", "key.inventory", "vivecraft.key.ingamemenubutton", "vivecraft.key.togglekeyboard"));
+            java.util.Arrays.asList("key.sneak", "key.inventory", "vivecraft.key.ingameMenuButton", "vivecraft.key.toggleKeyboard"));
 
     public static Map<String, Integer> defaultBinds = new HashMap<>();
 
     static {
         defaultBinds.put("key.inventory", 4);
-        defaultBinds.put("vivecraft.key.hotbarprev", 7);
-        defaultBinds.put("vivecraft.key.hotbarnext", 8);
+        defaultBinds.put("vivecraft.key.hotbarPrev", 7);
+        defaultBinds.put("vivecraft.key.hotbarNext", 8);
         defaultBinds.put("key.attack", 6);
         defaultBinds.put("vivecraft.key.teleport", 3);
-        defaultBinds.put("vivecraft.key.radialmenu", 2);
+        defaultBinds.put("vivecraft.key.radialMenu", 2);
         defaultBinds.put("key.use", 5);
         defaultBinds.put("key.jump", 1);
         defaultBinds.put("key.sneak", 10);
-        defaultBinds.put("vivecraft.key.teleportfallback", 3);
-        defaultBinds.put("vivecraft.key.ingamemenubutton", 11);
+        defaultBinds.put("vivecraft.key.ingameMenuButton", 11);
+        defaultBinds.put("vivecraft.key.teleportFallback", 3);
     }
 }

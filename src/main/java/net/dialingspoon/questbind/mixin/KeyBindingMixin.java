@@ -6,8 +6,8 @@ import net.dialingspoon.questbind.interfaces.MinecraftClientInterface;
 import net.dialingspoon.questbind.util.KeyBindUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -19,7 +19,7 @@ import java.util.Map;
 @Mixin(KeyBinding.class)
 public class KeyBindingMixin implements KeyBindingInterface {
     @Shadow
-    private static final Map<String, KeyBinding> KEYS_BY_ID = Maps.newHashMap();
+    private static @Final Map<String, KeyBinding> KEYS_BY_ID = Maps.newHashMap();
 
     public int bindIt = 0;
 

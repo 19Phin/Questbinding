@@ -6,12 +6,12 @@
   "mixins": [
   ],
   "client": [
-    "MCOpenVRMixin",
-    "KeyBindingEntryMixin",
-    "KeybindsScreenMixin",
     "ControlsListWidgetAccessor",
-    "MinecraftClientMixin",
-    "KeyBindingMixin"
+    "KeyBindingEntryMixin",
+    "KeyBindingMixin",
+    "KeybindsScreenMixin",
+    "MCOpenVRMixin",
+    "MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1
