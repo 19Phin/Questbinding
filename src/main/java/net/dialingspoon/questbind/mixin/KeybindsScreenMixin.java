@@ -41,18 +41,4 @@ public class KeybindsScreenMixin extends GameOptionsScreen {
 		// For all other buttons, return them as-is
 		return this.addDrawableChild(buttonWidget);
 	}
-
-	@Inject(at = @At("HEAD"), method = "mouseClicked", cancellable = true)
-	private void mouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
-		if (!super.mouseClicked(mouseX, mouseY, button)) this.selectedKeyBinding = null;
-		if (this.selectedKeyBinding != null) {
-            int i = ((KeyBindingInterface)selectedKeyBinding).getBindIt()+1;
-            if (i == 12) i = 0;
-            ((KeyBindingInterface)selectedKeyBinding).setBindIt(i);
-			cir.setReturnValue(true);
-		} else {
-			cir.setReturnValue(super.mouseClicked(mouseX, mouseY, button));
-		}
-		cir.cancel();
-	}
 }

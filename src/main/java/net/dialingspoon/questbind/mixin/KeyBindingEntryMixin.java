@@ -36,6 +36,12 @@ public class KeyBindingEntryMixin {
 	@Inject(at = @At("HEAD"), method = "render", cancellable = true)
 	private void init(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta, CallbackInfo ci) {
 		boolean bl = ((ControlsListWidgetAccessor)field_2742).getParent().selectedKeyBinding == this.binding;
+		if (bl && ((ControlsListWidgetAccessor) field_2742).getParent().selectedKeyBinding != null) {
+			int i = ((KeyBindingInterface) ((ControlsListWidgetAccessor) field_2742).getParent().selectedKeyBinding).getBindIt() + 1;
+			if (i == 12) i = 0;
+			((KeyBindingInterface) ((ControlsListWidgetAccessor) field_2742).getParent().selectedKeyBinding).setBindIt(i);
+			((ControlsListWidgetAccessor) field_2742).getParent().selectedKeyBinding = null;
+		}
 		TextRenderer var10000 = MinecraftClient.getInstance().textRenderer;
 		Text var10002 = this.bindingName;
 		float var10003 = (float)(x + 90 - ((ControlsListWidgetAccessor)field_2742).getMaxKeyNameLength());
@@ -49,23 +55,6 @@ public class KeyBindingEntryMixin {
 		this.editButton.setX(x + 105);
 		this.editButton.setY(y);
 		this.editButton.setMessage(Text.literal(KeyBindUtil.BUTTONS[((KeyBindingInterface)this.binding).getBindIt()]));
-		boolean bl2 = false;
-		if (!this.binding.isUnbound()) {
-			KeyBinding[] var13 = MinecraftClient.getInstance().options.allKeys;
-			int var14 = var13.length;
-
-			for(int var15 = 0; var15 < var14; ++var15) {
-				KeyBinding keyBinding = var13[var15];
-				if (keyBinding != this.binding && this.binding.equals(keyBinding)) {
-					bl2 = true;
-					break;
-				}
-			}
-		}
-
-		if (bl) {
-			this.editButton.setMessage(Text.literal("> ").append(this.editButton.getMessage().copy().formatted(Formatting.YELLOW)).append(" <").formatted(Formatting.YELLOW));
-		}
 
 		this.editButton.render(matrices, mouseX, mouseY, tickDelta);
 		ci.cancel();
