@@ -38,7 +38,6 @@ public class KeyBindUtil {
     }
 
     public void actualSave() {
-        read = false;
         KeyBinding.updateKeysByCode();
         save = "";
         binds.forEach(this::save);
@@ -74,6 +73,7 @@ public class KeyBindUtil {
         }
         read = true;
         KeyBinding.updateKeysByCode();
+        read = false;
     }
 
     public void compileKeybind(String translationKey, int button){

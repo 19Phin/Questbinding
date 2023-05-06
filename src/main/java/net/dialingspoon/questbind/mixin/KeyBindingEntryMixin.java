@@ -4,6 +4,7 @@ import net.dialingspoon.questbind.interfaces.KeyBindingInterface;
 import net.dialingspoon.questbind.util.KeyBindUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.option.ControlsListWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.option.KeyBinding;
@@ -31,11 +32,12 @@ public class KeyBindingEntryMixin {
 	private @Final ButtonWidget resetButton;
 	@Shadow
 	@Final ControlsListWidget field_2742;
+	@Shadow
+	private boolean duplicate = false;
 
 
 	@Inject(at = @At("HEAD"), method = "render", cancellable = true)
-	private void init(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta, CallbackInfo ci) {
-		boolean bl = ((ControlsListWidgetAccessor)field_2742).getParent().selectedKeyBinding == this.binding;
+	private void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta, CallbackInfo ci) {
 		TextRenderer var10000 = MinecraftClient.getInstance().textRenderer;
 		Text var10002 = this.bindingName;
 		float var10003 = (float)(x + 90 - ((ControlsListWidgetAccessor)field_2742).getMaxKeyNameLength());
@@ -44,30 +46,29 @@ public class KeyBindingEntryMixin {
 		var10000.draw(matrices, var10002, var10003, (float)(var10004 - 9 / 2), 16777215);
 		this.resetButton.setX(x + 190);
 		this.resetButton.setY(y);
-		this.resetButton.active = !this.binding.isDefault();
 		this.resetButton.render(matrices, mouseX, mouseY, tickDelta);
 		this.editButton.setX(x + 105);
 		this.editButton.setY(y);
-		this.editButton.setMessage(Text.literal(KeyBindUtil.BUTTONS[((KeyBindingInterface)this.binding).getBindIt()]));
-		boolean bl2 = false;
-		if (!this.binding.isUnbound()) {
-			KeyBinding[] var13 = MinecraftClient.getInstance().options.allKeys;
-			int var14 = var13.length;
-
-			for(int var15 = 0; var15 < var14; ++var15) {
-				KeyBinding keyBinding = var13[var15];
-				if (keyBinding != this.binding && this.binding.equals(keyBinding)) {
-					bl2 = true;
-					break;
-				}
-			}
-		}
-
-		if (bl) {
-			this.editButton.setMessage(Text.literal("> ").append(this.editButton.getMessage().copy().formatted(Formatting.YELLOW)).append(" <").formatted(Formatting.YELLOW));
+		if (this.duplicate) {
+			int j = this.editButton.getX() - 6;
+			DrawableHelper.fill(matrices, j, y + 2, j + 3, y + entryHeight + 2, Formatting.RED.getColorValue() | -16777216);
 		}
 
 		this.editButton.render(matrices, mouseX, mouseY, tickDelta);
+		ci.cancel();
+	}
+
+	@Inject(at = @At("HEAD"), method = "update", cancellable = true)
+	private void update(CallbackInfo ci) {
+		if (!(((ControlsListWidgetAccessor) field_2742).getParent().selectedKeyBinding == null)) {
+			int i = ((KeyBindingInterface) ((ControlsListWidgetAccessor) field_2742).getParent().selectedKeyBinding).getBindIt() + 1;
+			if (i == 12) i = 0;
+			((KeyBindingInterface) ((ControlsListWidgetAccessor) field_2742).getParent().selectedKeyBinding).setBindIt(i);
+		}
+		this.editButton.setMessage(Text.literal(KeyBindUtil.BUTTONS[((KeyBindingInterface)this.binding).getBindIt()]));
+		this.resetButton.active = false;
+		this.duplicate = false;
+		((ControlsListWidgetAccessor) field_2742).getParent().selectedKeyBinding = null;
 		ci.cancel();
 	}
 }

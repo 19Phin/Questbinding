@@ -1,9 +1,9 @@
 package net.dialingspoon.questbind.mixin;
 
-import net.dialingspoon.questbind.interfaces.KeyBindingInterface;
 import net.dialingspoon.questbind.interfaces.MinecraftClientInterface;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.option.ControlsListWidget;
 import net.minecraft.client.gui.screen.option.GameOptionsScreen;
 import net.minecraft.client.gui.screen.option.KeybindsScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -22,6 +22,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class KeybindsScreenMixin extends GameOptionsScreen {
 	@Shadow
 	public KeyBinding selectedKeyBinding;
+	@Shadow
+	private ControlsListWidget controlsList;
 
 	public KeybindsScreenMixin(Screen parent, GameOptions gameOptions, Text title) {
 		super(parent, gameOptions, title);
@@ -44,11 +46,9 @@ public class KeybindsScreenMixin extends GameOptionsScreen {
 
 	@Inject(at = @At("HEAD"), method = "mouseClicked", cancellable = true)
 	private void mouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
-		if (!super.mouseClicked(mouseX, mouseY, button)) this.selectedKeyBinding = null;
 		if (this.selectedKeyBinding != null) {
-            int i = ((KeyBindingInterface)selectedKeyBinding).getBindIt()+1;
-            if (i == 12) i = 0;
-            ((KeyBindingInterface)selectedKeyBinding).setBindIt(i);
+			this.selectedKeyBinding = null;
+			this.controlsList.update();
 			cir.setReturnValue(true);
 		} else {
 			cir.setReturnValue(super.mouseClicked(mouseX, mouseY, button));
