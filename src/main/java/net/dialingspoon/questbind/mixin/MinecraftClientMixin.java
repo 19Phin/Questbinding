@@ -7,10 +7,8 @@ import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin implements MinecraftClientInterface {
-
-    public final KeyBindUtil keyBindUtil = new KeyBindUtil();
-
-
+    // add global Keybindutil
+    final KeyBindUtil keyBindUtil = new KeyBindUtil();
     @Override
     public KeyBindUtil getKeyBindUtil() {
         return keyBindUtil;
