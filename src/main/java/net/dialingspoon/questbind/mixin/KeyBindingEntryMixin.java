@@ -46,7 +46,7 @@ public class KeyBindingEntryMixin {
 		this.resetButton.render(matrices, mouseX, mouseY, tickDelta);
 		this.editButton.x = x + 105;
 		this.editButton.y = y;
-		this.editButton.setMessage(Text.literal(BUTTONS.get(BUTTONPATH.indexOf(((KeyBindingInterface)this.binding).getBindIt()))));
+		this.editButton.setMessage(Text.of(BUTTONS.get(BUTTONPATH.indexOf(((KeyBindingInterface)this.binding).getBindIt()))));
 
 		this.editButton.render(matrices, mouseX, mouseY, tickDelta);
 		ci.cancel();
