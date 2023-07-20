@@ -26,11 +26,11 @@ public class KeybindsScreenMixin extends GameOptionsScreen {
         //!reset
         ButtonWidget buttonWidget = (ButtonWidget) element;
 		if (buttonWidget.getMessage() == ScreenTexts.DONE) {
-			return this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, button -> {
+			return this.addDrawableChild(new ButtonWidget(buttonWidget.x, buttonWidget.y, buttonWidget.getWidth(), buttonWidget.getHeight(), ScreenTexts.DONE, (button) -> {
 				//update the binds when screen is closed
 				((MinecraftClientInterface)client).getKeyBindUtil().actualSave();
 				this.client.setScreen(this.parent);
-			}).dimensions(buttonWidget.getX(), buttonWidget.getY(), buttonWidget.getWidth(), buttonWidget.getHeight()).build());
+			}));
 		}
 
 		return this.addDrawableChild(buttonWidget);

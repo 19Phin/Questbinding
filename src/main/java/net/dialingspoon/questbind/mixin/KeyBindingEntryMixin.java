@@ -1,16 +1,12 @@
 package net.dialingspoon.questbind.mixin;
 
 import net.dialingspoon.questbind.interfaces.KeyBindingInterface;
-import net.dialingspoon.questbind.util.KeyBindUtil;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.option.ControlsListWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 @Mixin(ControlsListWidget.KeyBindingEntry.class)
 public class KeyBindingEntryMixin {
@@ -45,12 +40,12 @@ public class KeyBindingEntryMixin {
 			((ControlsListWidgetAccessor) field_2742).getParent().selectedKeyBinding = null;
 		}
 		MinecraftClient.getInstance().textRenderer.draw(matrices, this.bindingName, (float)(x + 90 - ((ControlsListWidgetAccessor)field_2742).getMaxKeyNameLength()), (float)(y + entryHeight / 2 - MinecraftClient.getInstance().textRenderer.fontHeight / 2), 16777215);
-		this.resetButton.setX(x + 190);
-		this.resetButton.setY(y);
+		this.resetButton.x = x + 190;
+		this.resetButton.y = y;
 		this.resetButton.active = false;
 		this.resetButton.render(matrices, mouseX, mouseY, tickDelta);
-		this.editButton.setX(x + 105);
-		this.editButton.setY(y);
+		this.editButton.x = x + 105;
+		this.editButton.y = y;
 		this.editButton.setMessage(Text.literal(BUTTONS.get(BUTTONPATH.indexOf(((KeyBindingInterface)this.binding).getBindIt()))));
 
 		this.editButton.render(matrices, mouseX, mouseY, tickDelta);
