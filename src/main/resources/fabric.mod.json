@@ -6,7 +6,7 @@
   "name": "Questbind",
   "description": "Keybinding for Questcraft!",
   "authors": [
-    "Me!"
+    "DialingSpoon527"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
@@ -29,7 +29,7 @@
   "depends": {
     "fabricloader": ">=0.14.9",
     "fabric-api": "*",
-    "minecraft": "1.20.1",
+    "minecraft": ">=1.20",
     "java": ">=17"
   },
   "suggests": {
