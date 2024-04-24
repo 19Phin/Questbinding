@@ -23,18 +23,17 @@ public class KeybindsScreenMixin extends GameOptionsScreen {
 
 	@Redirect(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/option/KeybindsScreen;addDrawableChild(Lnet/minecraft/client/gui/Element;)Lnet/minecraft/client/gui/Element;"))
 	private Element addDrawableChildRedirect(KeybindsScreen instance, Element element) {
-		if (!(element instanceof ControlsListWidget)) {
-		//custom done button
-		//!reset
-		ButtonWidget buttonWidget = (ButtonWidget) element;
-		if (buttonWidget.getMessage() == ScreenTexts.DONE) {
-			return this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (button) -> {
-				//update the binds when screen is closed
-				((MinecraftClientInterface) client).getKeyBindUtil().actualSave();
-				this.client.setScreen(this.parent);
-			}).dimensions(buttonWidget.getX(), buttonWidget.getY(), buttonWidget.getWidth(), buttonWidget.getHeight()).build());
-		}
-		return this.addDrawableChild(buttonWidget);
+		if (element instanceof ButtonWidget buttonWidget) {
+			//custom done button
+			//!reset
+            if (buttonWidget.getMessage() == ScreenTexts.DONE) {
+				return this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (button) -> {
+					//update the binds when screen is closed
+					((MinecraftClientInterface) client).getKeyBindUtil().actualSave();
+					this.client.setScreen(this.parent);
+				}).dimensions(buttonWidget.getX(), buttonWidget.getY(), buttonWidget.getWidth(), buttonWidget.getHeight()).build());
+			}
+			return this.addDrawableChild(buttonWidget);
 		} else {
 			return this.addDrawableChild((ControlsListWidget)element);
 		}
