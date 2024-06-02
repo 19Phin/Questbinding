@@ -12,7 +12,8 @@
     "KeyBindingMixin",
     "KeybindsScreenMixin",
     "MCOpenVRMixin",
-    "MinecraftClientMixin"
+    "MinecraftClientMixin",
+    "VivecraftVRModMixin"
   ],
   "injectors": {
     "defaultRequire": 1
