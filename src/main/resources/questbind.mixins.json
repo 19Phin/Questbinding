@@ -6,13 +6,13 @@
   "mixins": [
   ],
   "client": [
-    "TitleScreenMixin",
     "ControlsListWidgetAccessor",
     "KeyBindingEntryMixin",
     "KeyBindingMixin",
     "KeybindsScreenMixin",
     "MCOpenVRMixin",
     "MinecraftClientMixin",
+    "TitleScreenMixin",
     "VivecraftVRModMixin"
   ],
   "injectors": {

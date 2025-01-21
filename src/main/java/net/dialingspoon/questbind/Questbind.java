@@ -1,8 +1,6 @@
 package net.dialingspoon.questbind;
 
-import net.dialingspoon.questbind.interfaces.MinecraftClientInterface;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.client.MinecraftClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
