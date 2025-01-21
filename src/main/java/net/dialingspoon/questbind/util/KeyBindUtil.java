@@ -238,16 +238,10 @@ public class KeyBindUtil {
         tempMap.put("haptic_amplitude", "0");
     }
     public static ArrayList<ButtonBind> DEFAULTBINDS = new ArrayList<>(java.util.Arrays.asList(
-            new ButtonBind("click", "vivecraft.key.climbeyGrab", tempMap, "button", "left/input/trigger", "contextual"),
             new ButtonBind("", "", new HashMap<>(), "button", "left/input/grip", "contextual"),
             new ButtonBind("", "", new HashMap<>(), "button", "right/input/grip", "contextual"),
-            new ButtonBind("click", "vivecraft.key.climbeyGrab", tempMap, "button", "right/input/trigger", "contextual"),
-            new ButtonBind("click", "vivecraft.key.climbeyGrab", new HashMap<>(), "button", "left/input/grip", "contextual"),
             new ButtonBind("click", "vivecraft.key.climbeyGrab", new HashMap<>(), "button", "right/input/grip", "contextual"),
             new ButtonBind("click", "vivecraft.key.vrInteract", new HashMap<>(), "button", "left/input/grip", "contextual"),
-            new ButtonBind("click", "vivecraft.key.vrInteract", new HashMap<>(), "button", "right/input/grip", "contextual"),
-            new ButtonBind("click", "vivecraft.key.vrInteract", tempMap, "button", "left/input/trigger", "contextual"),
-            new ButtonBind("click", "vivecraft.key.vrInteract", tempMap, "button", "right/input/trigger", "contextual"),
             new ButtonBind("click", "vivecraft.key.ingameMenuButton", new HashMap<>(), "button", "left/input/application_menu", "global"),
             new ButtonBind("click", "key.inventory", new HashMap<>(), "button", "left/input/y", "global"),
             new ButtonBind("click", "vivecraft.key.guiShift", new HashMap<>(), "button", "left/input/grip", "gui"),
@@ -265,9 +259,7 @@ public class KeyBindUtil {
             new ButtonBind("key.jump", "right/input/a"),
             new ButtonBind("click", "key.sneak", new HashMap<>(), "toggle_button", "right/input/joystick", "ingame"),
             new ButtonBind("vivecraft.key.teleportFallback", "left/input/x"),
-            new ButtonBind("click", "vivecraft.key.keyboardShift", new HashMap<>(), "button", "left/input/grip", "keyboard"),
             new ButtonBind("click", "vivecraft.key.keyboardShift", new HashMap<>(), "button", "right/input/grip", "keyboard"),
-            new ButtonBind("click", "vivecraft.key.keyboardClick", new HashMap<>(), "button", "left/input/trigger", "keyboard"),
             new ButtonBind("click", "vivecraft.key.keyboardClick", new HashMap<>(), "button", "right/input/trigger", "keyboard")
     ));
 }
