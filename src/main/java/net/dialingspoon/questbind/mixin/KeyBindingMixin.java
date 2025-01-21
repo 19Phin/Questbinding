@@ -40,6 +40,7 @@ public class KeyBindingMixin implements KeyBindingInterface {
             //set all keybind ui buttons from save
             ArrayList<ButtonBind> binds = keyBindUtil.binds;
             for (KeyBinding keyBinding : KEYS_BY_ID.values()) {
+                ((KeyBindingInterface) keyBinding).setBindIt("null");
                 for (ButtonBind bind : binds) {
                     if (bind.output.equals(keyBinding.getTranslationKey()))
                         ((KeyBindingInterface) keyBinding).setBindIt(bind.button);
