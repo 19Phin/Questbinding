@@ -3,6 +3,8 @@ package net.dialingspoon.questbind.mixin;
 import net.dialingspoon.questbind.interfaces.MinecraftClientInterface;
 import net.dialingspoon.questbind.util.KeyBindUtil;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.option.ControlsListWidget;
@@ -11,12 +13,15 @@ import net.minecraft.client.gui.screen.option.KeybindsScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(KeybindsScreen.class)
 public class KeybindsScreenMixin extends GameOptionsScreen {
@@ -47,5 +52,14 @@ public class KeybindsScreenMixin extends GameOptionsScreen {
 		}
 
 		return this.addDrawableChild(buttonWidget);
+	}
+
+	@Inject(method = "render", at = @At(value = "TAIL"))
+	protected void renderWarning(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+		TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
+
+		//draw the warning on the screen (centered)
+		String message = "Must restart Questcraft for changes to take place!";
+		DrawableHelper.drawCenteredText(matrices, textRenderer, message, (this.width) / 2, 22, 0xFF0000);
 	}
 }
