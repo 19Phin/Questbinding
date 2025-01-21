@@ -34,8 +34,6 @@ public class KeyBindingEntryMixin {
 	@Shadow
 	private @Final Text bindingName;
 
-	@Shadow protected void update() {}
-
 	final ArrayList<String> BUTTONPATH = new ArrayList<>(java.util.Arrays.asList("null","right/input/a", "right/input/b", "left/input/x", "left/input/y", "left/input/trigger", "right/input/trigger", "left/input/grip", "right/input/grip", "left/input/joystick", "right/input/joystick", "left/input/application_menu"));
 	final ArrayList<String> BUTTONS = new ArrayList<>(java.util.Arrays.asList("null","a", "b", "x", "y", "Ltrigger", "Rtrigger", "Lgrip", "Rgrip", "LstickPress", "RstickPress", "MenuButton"));
 
@@ -49,7 +47,6 @@ public class KeyBindingEntryMixin {
 				}
 			}
 			((KeyBindingInterface) binding).setBindIt(bindIt);
-			update();
 		});
 	}
 
